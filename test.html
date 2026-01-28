@@ -1,31 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="main.js"></script>
+    <title>Quản lý Posts & Comments</title>
+    <style>
+        /* GIỮ NGUYÊN CSS CŨ CỦA BẠN */
+        :root {
+            --primary: #2563eb;
+            --danger: #ef4444;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            display: grid;
+            gap: 30px;
+        }
+        .card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        h1, h2 {
+            margin: 0 0 20px 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        input {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+            font-size: 0.95rem;
+        }
+        input:focus { border-color: var(--primary); }
+        .input-main { flex: 2; }
+        .input-sub { flex: 1; }
+        button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: opacity 0.2s;
+            font-size: 0.9rem;
+        }
+        button:hover { opacity: 0.9; }
+        .btn-add {
+            background: var(--primary);
+            color: white;
+            white-space: nowrap;
+        }
+        ul { list-style: none; padding: 0; margin: 0; }
+        li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li:last-child { border-bottom: none; }
+        .post-info { font-size: 0.95rem; }
+        .post-meta {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+        .actions button {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+            background: transparent;
+            color: var(--text-gray);
+            border: 1px solid var(--border);
+        }
+        .actions button:hover {
+            background: var(--bg-body);
+            color: var(--text-dark);
+        }
+        .actions button.btn-delete:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+            background: #fef2f2;
+        }
+        .deleted .post-info {
+            text-decoration: line-through;
+            color: var(--text-gray);
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>TITLE</th>
-                    <th>VIEWS</th>
-                </tr>
-            </thead>
-            <tbody id="body_table">
-               
-            </tbody>
-        </table>
+
+<div class="container">
+
+    <div class="card">
+        <h1>📌 Quản lý Posts</h1>
+        
+        <div class="input-group">
+            <input type="text" id="titleInput" class="input-main" placeholder="Nhập tiêu đề post...">
+            <input type="number" id="viewsInput" class="input-sub" placeholder="Lượt xem">
+            <button class="btn-add" onclick="addPost()">Thêm</button>
+        </div>
+
+        <ul id="postList"></ul>
     </div>
-    <div>
-        <input type="text" id="id_txt"/>
-        <input type="text" id="title_txt"/>
-        <input type="text" id="view_txt"/>
-        <input type="submit" value="Save" onclick="Save()">
+
+    <div class="card">
+        <h2>💬 Quản lý Comments</h2>
+
+        <div class="input-group">
+            <input type="text" id="commentText" class="input-main" placeholder="Nội dung comment...">
+            <input type="text" id="commentPostId" class="input-sub" placeholder="Post ID">
+            <button class="btn-add" onclick="addComment()">Thêm</button>
+        </div>
+
+        <ul id="commentList"></ul>
     </div>
+
+</div>
+
+<script src="main.js"></script>
+
 </body>
 </html>
